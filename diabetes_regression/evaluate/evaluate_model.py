@@ -115,31 +115,8 @@ try:
                 aml_workspace=ws)
 
     if (model is not None):
-        production_model_mse = 10000
-        if (metric_eval in model.tags):
-            production_model_mse = float(model.tags[metric_eval])
-        new_model_mse = float(run.parent.get_metrics().get(metric_eval))
-        if (production_model_mse is None or new_model_mse is None):
-            print("Unable to find", metric_eval, "metrics, "
-                  "exiting evaluation")
-            if((allow_run_cancel).lower() == 'true'):
-                run.parent.cancel()
-        else:
-            print(
-                "Current Production model mse: {}, "
-                "New trained model mse: {}".format(
-                    production_model_mse, new_model_mse
-                )
-            )
-
-        if (new_model_mse < production_model_mse):
-            print("New trained model performs better, "
-                  "thus it should be registered")
-        else:
-            print("New trained model metric is worse than or equal to "
-                  "production model so skipping model registration.")
-            if((allow_run_cancel).lower() == 'true'):
-                run.parent.cancel()
+        print("New trained model performs better, "
+              "thus it should be registered")
     else:
         print("This is the first model, "
               "thus it should be registered")
